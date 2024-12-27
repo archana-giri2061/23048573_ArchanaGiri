@@ -1,0 +1,1625 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package com.foodie.view;
+
+import com.Foodie.Controllers.calculateBills;
+import com.Foodie.model.food;
+import java.awt.CardLayout;
+
+
+import javax.swing.JOptionPane;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import java.util.LinkedList;
+
+
+
+/**
+ *
+ * @author 23028573_ArchanaGiri
+ */
+public class foodOrder extends javax.swing.JFrame {
+    //private final ValidationUtil validations;
+    //private java.awt.CardLayout cardLayout;
+    private LinkedList<food> billList;
+    private DefaultTableModel billTableModel;
+    
+    private final calculateBills controller;
+    private double total = 0.0;
+ // private int x = 0;
+   
+    
+        /**
+     * Creates new form foodOrder
+     */
+    
+    public foodOrder() {
+        initComponents();
+        billList = new LinkedList<>();
+        //billTableModel = new DefaultTableModel(new object[]{"Name", "Price", "Quantity", "Total"}, 0);
+        //bill.setModel(billTableModel);
+        controller = new calculateBills(this);
+        //validations = new ValidationUtil();
+        setTime();
+        startProgress();
+        initializeData();
+        
+
+    }
+    
+    public boolean qtyIsZero(int qty ){
+        if(qty == 0){
+        JOptionPane.showMessageDialog(null, "Item Quantity is not added", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+        return false;
+        }
+        return true;
+    }
+    private void initializeLayout(){
+        CardLayout cardLayout = new java.awt.CardLayout();
+        getContentPane().setLayout(cardLayout);
+        
+        getContentPane().add(loadingPage, "loadingScreen");
+        getContentPane().add(login, "loginScreen");
+        getContentPane().add(dashboard, "MainScreen");
+        loadScreen("loadingScreen");
+    }
+    private void initializeData(){
+        billList = new LinkedList<>();
+        billing(new food("Pizza", 850.0, 0, "Tomato, Onion, Cheese"));
+        billing(new food("burger",500.0, 0, "Chicken, Onion, Tomato, Cheese"));
+        billing(new food("Spaghetti", 750.0, 0, "Noodles, White cheese"));
+        billing(new food("Mo:Mo", 250.0, 0, "cabbagge, Onion, Chicken"));
+        billing(new food("Fried Rice", 400.0, 0, "Tomato, Onion, Cheese"));
+    }
+    
+        
+    private void billing(food bill){
+        billList.add(bill);
+        DefaultTableModel model = (DefaultTableModel) billTable.getModel();
+        model.addRow(new Object[]{bill.getName(),
+            bill.getPrice(),
+            bill.getQuantity(),
+            bill.getIngredients()
+        });
+//        DefaultTableModel tableModel = new DefaultTableModel(
+//        new Object[]{"Food Name", "Price", "Quantity", "Ingredients"},0);
+//        bill.setModel(tableModel);
+//        billList.add(bill);
+            }
+
+    private void startProgress() {
+        javax.swing.SwingWorker<Void, Integer> worker = new javax.swing.SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                for (int i = 0; i <= 100; i++) {
+                    Thread.sleep(30);
+                    publish(i);  // Publish progress value
+            }   
+                return null;
+            }
+
+            @Override
+            protected void process(java.util.List<Integer> chunks) {
+            // Update progress bar value
+                int progress = chunks.get(chunks.size() - 1);
+                loading.setValue(progress);  // Update the loading progress bar
+            }   
+
+            @Override
+            protected void done() {
+                loadScreen("LoginScreen"); // Switch to login screen or other actions after progress is complete
+            }   
+        };
+        worker.execute();  // Start the worker thread
+        }
+
+
+    public void reset(){
+        jSpinner1.setValue(0);
+        jSpinner9.setValue(0);
+        jSpinner3.setValue(0);
+        jSpinner4.setValue(0);
+        jSpinner5.setValue(0);
+        jSpinner6.setValue(0);
+        jSpinner7.setValue(0);
+        jSpinner8.setValue(0);
+        itemTextfield.setText("0.0");
+        taxTextfield.setText("0.0");
+        totalTextfield.setText("0.0");
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
+        jCheckBox4.setSelected(false);
+        jCheckBox5.setSelected(false);
+        jCheckBox6.setSelected(false);
+        jCheckBox7.setSelected(false);
+        jCheckBox8.setSelected(false);
+        
+    }
+        
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        login = new javax.swing.JPanel();
+        signImage = new javax.swing.JLabel();
+        Form = new javax.swing.JPanel();
+        loginText = new javax.swing.JLabel();
+        passwordField = new javax.swing.JTextField();
+        userField = new javax.swing.JTextField();
+        cancleButton = new javax.swing.JButton();
+        loginButton = new javax.swing.JButton();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        lbloginError = new javax.swing.JPanel();
+        dashboard = new javax.swing.JPanel();
+        logopanel = new javax.swing.JPanel();
+        logoImage = new javax.swing.JLabel();
+        dateTime = new javax.swing.JLabel();
+        dateTime1 = new javax.swing.JLabel();
+        menu = new javax.swing.JPanel();
+        menuField = new javax.swing.JPanel();
+        menuText = new javax.swing.JLabel();
+        food2 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
+        jSpinner9 = new javax.swing.JSpinner();
+        food3 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jSpinner3 = new javax.swing.JSpinner();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        jLabel6 = new javax.swing.JLabel();
+        food4 = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jSpinner4 = new javax.swing.JSpinner();
+        jCheckBox4 = new javax.swing.JCheckBox();
+        jLabel4 = new javax.swing.JLabel();
+        food5 = new javax.swing.JPanel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jSpinner5 = new javax.swing.JSpinner();
+        jCheckBox5 = new javax.swing.JCheckBox();
+        jLabel7 = new javax.swing.JLabel();
+        food1 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel8 = new javax.swing.JLabel();
+        food6 = new javax.swing.JPanel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jCheckBox6 = new javax.swing.JCheckBox();
+        jSpinner6 = new javax.swing.JSpinner();
+        jLabel9 = new javax.swing.JLabel();
+        food8 = new javax.swing.JPanel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        jLabel66 = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        jSpinner8 = new javax.swing.JSpinner();
+        jCheckBox8 = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        food7 = new javax.swing.JPanel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        jLabel59 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        jSpinner7 = new javax.swing.JSpinner();
+        jCheckBox7 = new javax.swing.JCheckBox();
+        jLabel10 = new javax.swing.JLabel();
+        footerPanel = new javax.swing.JPanel();
+        totalButton = new javax.swing.JButton();
+        billButton = new javax.swing.JButton();
+        resetButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
+        billingPanel = new javax.swing.JPanel();
+        itemTextfield = new javax.swing.JTextField();
+        taxTextfield = new javax.swing.JTextField();
+        totalTextfield = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        billDetails = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        billTable = new javax.swing.JTable();
+        loadingPage = new javax.swing.JPanel();
+        loadingPageImage1 = new javax.swing.JLabel();
+        loading = new javax.swing.JProgressBar();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+
+        signImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/signin_image.jpg"))); // NOI18N
+
+        Form.setBackground(new java.awt.Color(250, 250, 250));
+        Form.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 230, 230), 2));
+
+        loginText.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        loginText.setText("Login Account");
+
+        passwordField.setToolTipText("Password");
+
+        userField.setToolTipText("Username");
+        userField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userFieldActionPerformed(evt);
+            }
+        });
+
+        cancleButton.setBackground(new java.awt.Color(0, 102, 102));
+        cancleButton.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        cancleButton.setForeground(new java.awt.Color(255, 255, 255));
+        cancleButton.setText("Cancel");
+        cancleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancleButtonActionPerformed(evt);
+            }
+        });
+
+        loginButton.setBackground(new java.awt.Color(0, 102, 102));
+        loginButton.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
+        loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel47.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel47.setText("Username");
+
+        jLabel53.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel53.setText("Password");
+
+        javax.swing.GroupLayout lbloginErrorLayout = new javax.swing.GroupLayout(lbloginError);
+        lbloginError.setLayout(lbloginErrorLayout);
+        lbloginErrorLayout.setHorizontalGroup(
+            lbloginErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        lbloginErrorLayout.setVerticalGroup(
+            lbloginErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout FormLayout = new javax.swing.GroupLayout(Form);
+        Form.setLayout(FormLayout);
+        FormLayout.setHorizontalGroup(
+            FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FormLayout.createSequentialGroup()
+                .addGroup(FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FormLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(loginText, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(FormLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addGroup(FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cancleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel47)
+                            .addComponent(jLabel53))))
+                .addContainerGap(129, Short.MAX_VALUE))
+            .addComponent(lbloginError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(FormLayout.createSequentialGroup()
+                    .addGap(91, 91, 91)
+                    .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(129, Short.MAX_VALUE)))
+        );
+        FormLayout.setVerticalGroup(
+            FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FormLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(loginText, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(jLabel47)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel53)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86)
+                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(cancleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
+                .addComponent(lbloginError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
+            .addGroup(FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(FormLayout.createSequentialGroup()
+                    .addGap(180, 180, 180)
+                    .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(389, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout loginLayout = new javax.swing.GroupLayout(login);
+        login.setLayout(loginLayout);
+        loginLayout.setHorizontalGroup(
+            loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(loginLayout.createSequentialGroup()
+                .addComponent(signImage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Form, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
+        );
+        loginLayout.setVerticalGroup(
+            loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(loginLayout.createSequentialGroup()
+                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(Form, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(signImage, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        dashboard.setBackground(new java.awt.Color(250, 250, 250));
+        dashboard.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 230, 230), 2));
+        dashboard.setMaximumSize(new java.awt.Dimension(1350, 990));
+        dashboard.setMinimumSize(new java.awt.Dimension(1350, 990));
+        dashboard.setPreferredSize(new java.awt.Dimension(1350, 990));
+        dashboard.setVerifyInputWhenFocusTarget(false);
+        dashboard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        logoImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/logo3.jpg"))); // NOI18N
+
+        dateTime.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+
+        dateTime1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+
+        javax.swing.GroupLayout logopanelLayout = new javax.swing.GroupLayout(logopanel);
+        logopanel.setLayout(logopanelLayout);
+        logopanelLayout.setHorizontalGroup(
+            logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logopanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoImage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 762, Short.MAX_VALUE)
+                .addComponent(dateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(dateTime1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        logopanelLayout.setVerticalGroup(
+            logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logopanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(logopanelLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateTime1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        dashboard.add(logopanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 2, 1340, -1));
+
+        menu.setBackground(new java.awt.Color(250, 250, 250));
+        menu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(240, 240, 240), 2, true));
+        menu.setMaximumSize(new java.awt.Dimension(970, 750));
+        menu.setMinimumSize(new java.awt.Dimension(970, 750));
+        menu.setPreferredSize(new java.awt.Dimension(970, 750));
+        menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        menuField.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        menuText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        menuText.setForeground(new java.awt.Color(255, 153, 0));
+        menuText.setText("Menu Items");
+        menuField.add(menuText, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
+
+        menu.add(menuField, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 56, -1, -1));
+
+        food2.setMaximumSize(new java.awt.Dimension(218, 328));
+        food2.setMinimumSize(new java.awt.Dimension(218, 328));
+        food2.setPreferredSize(new java.awt.Dimension(218, 328));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel20.setText("Name:");
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel21.setText("Price:");
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel22.setText("Quantity:");
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel23.setText("Purchase:");
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel24.setText("Pizza");
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel25.setText("Rs 850.0");
+
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/pizza.png"))); // NOI18N
+
+        jSpinner9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jSpinner9.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+
+        javax.swing.GroupLayout food2Layout = new javax.swing.GroupLayout(food2);
+        food2.setLayout(food2Layout);
+        food2Layout.setHorizontalGroup(
+            food2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(food2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(food2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel25)
+                    .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinner9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(food2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        food2Layout.setVerticalGroup(
+            food2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, food2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(food2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(food2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(jSpinner9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox2))
+                .addGap(21, 21, 21))
+        );
+
+        menu.add(food2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
+
+        food3.setMaximumSize(new java.awt.Dimension(218, 328));
+        food3.setMinimumSize(new java.awt.Dimension(218, 328));
+        food3.setPreferredSize(new java.awt.Dimension(218, 328));
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel27.setText("Name:");
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel28.setText("Price:");
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel29.setText("Quantity:");
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel30.setText("Purchase:");
+
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel31.setText("Mo:Mo");
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel32.setText("Rs 250.0");
+
+        jSpinner3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/momo.png"))); // NOI18N
+
+        javax.swing.GroupLayout food3Layout = new javax.swing.GroupLayout(food3);
+        food3.setLayout(food3Layout);
+        food3Layout.setHorizontalGroup(
+            food3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(food3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(food3Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(food3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel30))
+                        .addGap(40, 40, 40)
+                        .addGroup(food3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox3)
+                            .addComponent(jLabel32)
+                            .addComponent(jLabel31)
+                            .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(49, Short.MAX_VALUE))
+                    .addGroup(food3Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        food3Layout.setVerticalGroup(
+            food3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, food3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(food3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel31))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel32))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
+        );
+
+        menu.add(food3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, -1, -1));
+
+        food4.setMaximumSize(new java.awt.Dimension(218, 328));
+        food4.setMinimumSize(new java.awt.Dimension(218, 328));
+        food4.setPreferredSize(new java.awt.Dimension(218, 328));
+
+        jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel34.setText("Name:");
+
+        jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel35.setText("Price:");
+
+        jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel36.setText("Quantity:");
+
+        jLabel37.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel37.setText("Purchase:");
+
+        jLabel38.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel38.setText("Pasta");
+
+        jLabel39.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel39.setText("Rs 900.0");
+
+        jSpinner4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jSpinner4.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+
+        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox4ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/Pasta.png"))); // NOI18N
+
+        javax.swing.GroupLayout food4Layout = new javax.swing.GroupLayout(food4);
+        food4.setLayout(food4Layout);
+        food4Layout.setHorizontalGroup(
+            food4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food4Layout.createSequentialGroup()
+                .addGroup(food4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(food4Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(food4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel37))
+                        .addGap(40, 40, 40)
+                        .addGroup(food4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox4)
+                            .addComponent(jLabel39)
+                            .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(food4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        food4Layout.setVerticalGroup(
+            food4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, food4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(food4Layout.createSequentialGroup()
+                        .addComponent(jLabel38)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(food4Layout.createSequentialGroup()
+                        .addComponent(jLabel34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel36)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
+        );
+
+        menu.add(food4, new org.netbeans.lib.awtextra.AbsoluteConstraints(716, 100, -1, 327));
+
+        food5.setMaximumSize(new java.awt.Dimension(218, 328));
+        food5.setMinimumSize(new java.awt.Dimension(218, 328));
+        food5.setPreferredSize(new java.awt.Dimension(218, 328));
+
+        jLabel40.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel40.setText("Name:");
+
+        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel42.setText("Price:");
+
+        jLabel43.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel43.setText("Quantity:");
+
+        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel44.setText("Purchase:");
+
+        jLabel45.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel45.setText("Spaghetti");
+
+        jLabel46.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel46.setText("Rs 750.0");
+
+        jSpinner5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jSpinner5.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+
+        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox5ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/Spaghetti.png"))); // NOI18N
+
+        javax.swing.GroupLayout food5Layout = new javax.swing.GroupLayout(food5);
+        food5.setLayout(food5Layout);
+        food5Layout.setHorizontalGroup(
+            food5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, food5Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(food5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel44)
+                    .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(food5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel45)
+                    .addComponent(jLabel46)
+                    .addComponent(jCheckBox5)
+                    .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35))
+            .addGroup(food5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        food5Layout.setVerticalGroup(
+            food5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(food5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel45)
+                    .addComponent(jLabel40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel46)
+                    .addComponent(jLabel42))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel43))
+                .addGap(14, 14, 14)
+                .addGroup(food5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox5))
+                .addGap(18, 18, 18))
+        );
+
+        menu.add(food5, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 100, -1, -1));
+
+        food1.setMaximumSize(new java.awt.Dimension(218, 328));
+        food1.setMinimumSize(new java.awt.Dimension(218, 328));
+        food1.setPreferredSize(new java.awt.Dimension(218, 328));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setText("Name:");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel14.setText("Price:");
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel15.setText("Quantity:");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel16.setText("Purchase:");
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel17.setText("Burger");
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel18.setText("Rs 500.0");
+
+        jSpinner1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/burger.png"))); // NOI18N
+
+        javax.swing.GroupLayout food1Layout = new javax.swing.GroupLayout(food1);
+        food1.setLayout(food1Layout);
+        food1Layout.setHorizontalGroup(
+            food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel16))
+                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(food1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jCheckBox1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, food1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel18)
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(food1Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addGap(27, 27, 27)))
+                        .addGap(36, 36, 36))))
+            .addGroup(food1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        food1Layout.setVerticalGroup(
+            food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food1Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox1))
+                .addGap(16, 16, 16))
+        );
+
+        menu.add(food1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 445, -1, -1));
+
+        food6.setMaximumSize(new java.awt.Dimension(218, 328));
+        food6.setMinimumSize(new java.awt.Dimension(218, 328));
+        food6.setPreferredSize(new java.awt.Dimension(218, 328));
+
+        jLabel48.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel48.setText("Name:");
+
+        jLabel49.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel49.setText("Price:");
+
+        jLabel50.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel50.setText("Quantity:");
+
+        jLabel51.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel51.setText("Purchase:");
+
+        jLabel70.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel70.setText("Sandwich");
+
+        jLabel52.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel52.setText("Rs 350.0");
+
+        jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox6ActionPerformed(evt);
+            }
+        });
+
+        jSpinner6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jSpinner6.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/Sandwich.png"))); // NOI18N
+
+        javax.swing.GroupLayout food6Layout = new javax.swing.GroupLayout(food6);
+        food6.setLayout(food6Layout);
+        food6Layout.setHorizontalGroup(
+            food6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food6Layout.createSequentialGroup()
+                .addGroup(food6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(food6Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(food6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel51))
+                        .addGap(47, 47, 47)
+                        .addGroup(food6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox6)
+                            .addComponent(jLabel52)
+                            .addComponent(jLabel70)
+                            .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(food6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel9)))
+                .addGap(0, 12, Short.MAX_VALUE))
+        );
+        food6Layout.setVerticalGroup(
+            food6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, food6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(food6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel48)
+                    .addComponent(jLabel70))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(food6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel49)
+                    .addComponent(jLabel52))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel50)
+                    .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox6))
+                .addGap(16, 16, 16))
+        );
+
+        menu.add(food6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 445, -1, -1));
+
+        food8.setMaximumSize(new java.awt.Dimension(218, 328));
+        food8.setMinimumSize(new java.awt.Dimension(218, 328));
+        food8.setPreferredSize(new java.awt.Dimension(218, 328));
+
+        jLabel62.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel62.setText("Name:");
+
+        jLabel63.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel63.setText("Price:");
+
+        jLabel64.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel64.setText("Quantity:");
+
+        jLabel66.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel66.setText("Fried Chicken");
+
+        jLabel65.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel65.setText("Purchase:");
+
+        jLabel67.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel67.setText("Rs 1200.0");
+
+        jSpinner8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jSpinner8.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+
+        jCheckBox8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox8ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/FriedChicken.png"))); // NOI18N
+
+        javax.swing.GroupLayout food8Layout = new javax.swing.GroupLayout(food8);
+        food8.setLayout(food8Layout);
+        food8Layout.setHorizontalGroup(
+            food8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food8Layout.createSequentialGroup()
+                .addGroup(food8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(food8Layout.createSequentialGroup()
+                        .addGroup(food8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(food8Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2))
+                            .addComponent(jLabel63, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel64, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel65, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(food8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel67)
+                            .addComponent(jLabel66)
+                            .addComponent(jSpinner8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCheckBox8)))
+                    .addGroup(food8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        food8Layout.setVerticalGroup(
+            food8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(food8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel62)
+                    .addComponent(jLabel66))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel67)
+                    .addComponent(jLabel63))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSpinner8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel64))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(food8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox8))
+                .addGap(18, 18, 18))
+        );
+
+        menu.add(food8, new org.netbeans.lib.awtextra.AbsoluteConstraints(716, 445, -1, -1));
+
+        food7.setMaximumSize(new java.awt.Dimension(218, 328));
+        food7.setMinimumSize(new java.awt.Dimension(218, 328));
+        food7.setPreferredSize(new java.awt.Dimension(218, 328));
+        food7.setRequestFocusEnabled(false);
+
+        jLabel55.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel55.setText("Name:");
+
+        jLabel56.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel56.setText("Price:");
+
+        jLabel57.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel57.setText("Quantity:");
+
+        jLabel58.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel58.setText("Purchase:");
+
+        jLabel59.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel59.setText("Fried Rice");
+
+        jLabel60.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel60.setText("Rs 400.0");
+
+        jSpinner7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jSpinner7.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+
+        jCheckBox7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox7ActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/FriedRice.png"))); // NOI18N
+
+        javax.swing.GroupLayout food7Layout = new javax.swing.GroupLayout(food7);
+        food7.setLayout(food7Layout);
+        food7Layout.setHorizontalGroup(
+            food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food7Layout.createSequentialGroup()
+                .addGroup(food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(food7Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel55, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel58))
+                        .addGap(30, 30, 30)
+                        .addGroup(food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox7)
+                            .addComponent(jSpinner7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel60)
+                                .addComponent(jLabel59))))
+                    .addGroup(food7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel10)))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        food7Layout.setVerticalGroup(
+            food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(food7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(food7Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addGroup(food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel55, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel59))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel56)
+                            .addComponent(jLabel60))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(food7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel57)
+                            .addComponent(jSpinner7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox7)))
+                .addContainerGap())
+        );
+
+        menu.add(food7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 445, -1, -1));
+
+        dashboard.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 113, -1, 790));
+
+        footerPanel.setBackground(new java.awt.Color(250, 250, 250));
+        footerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 230, 230), 2));
+        footerPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        totalButton.setBackground(new java.awt.Color(0, 102, 102));
+        totalButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        totalButton.setForeground(new java.awt.Color(255, 255, 255));
+        totalButton.setText("Add");
+        totalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totalButtonActionPerformed(evt);
+            }
+        });
+        footerPanel.add(totalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 147, 42));
+
+        billButton.setBackground(new java.awt.Color(0, 102, 102));
+        billButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        billButton.setForeground(new java.awt.Color(255, 255, 255));
+        billButton.setText("Bill");
+        footerPanel.add(billButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 147, 42));
+
+        resetButton.setBackground(new java.awt.Color(0, 102, 102));
+        resetButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        resetButton.setForeground(new java.awt.Color(255, 255, 255));
+        resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
+        footerPanel.add(resetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 147, 42));
+
+        exitButton.setBackground(new java.awt.Color(0, 102, 102));
+        exitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(255, 255, 255));
+        exitButton.setText("Exit");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
+        footerPanel.add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 10, 147, 42));
+
+        dashboard.add(footerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 910, 970, 70));
+
+        billingPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        itemTextfield.setEditable(false);
+        itemTextfield.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        itemTextfield.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemTextfield.setText("0.0");
+        itemTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemTextfieldActionPerformed(evt);
+            }
+        });
+        billingPanel.add(itemTextfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(149, 67, 165, 31));
+
+        taxTextfield.setEditable(false);
+        taxTextfield.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        taxTextfield.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        taxTextfield.setText("0.0");
+        billingPanel.add(taxTextfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(149, 23, 165, 31));
+
+        totalTextfield.setEditable(false);
+        totalTextfield.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        totalTextfield.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        totalTextfield.setText("0.0");
+        billingPanel.add(totalTextfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(149, 111, 165, 31));
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel2.setText("Items:");
+        billingPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 27, 93, -1));
+
+        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel11.setText("Tax:");
+        billingPanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 66, 93, 30));
+
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel12.setText("Total:");
+        billingPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 110, 93, 30));
+
+        dashboard.add(billingPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 820, 370, 160));
+
+        billTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Price", "Quantity", "Ingredients"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(billTable);
+
+        javax.swing.GroupLayout billDetailsLayout = new javax.swing.GroupLayout(billDetails);
+        billDetails.setLayout(billDetailsLayout);
+        billDetailsLayout.setHorizontalGroup(
+            billDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(billDetailsLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 32, Short.MAX_VALUE))
+        );
+        billDetailsLayout.setVerticalGroup(
+            billDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
+        );
+
+        dashboard.add(billDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 110, 370, 710));
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1350, 940));
+        setMinimumSize(new java.awt.Dimension(1350, 940));
+        setPreferredSize(new java.awt.Dimension(1350, 940));
+        setSize(new java.awt.Dimension(1350, 940));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        loadingPage.setBackground(new java.awt.Color(255, 255, 255));
+        loadingPage.setMaximumSize(new java.awt.Dimension(1300, 900));
+        loadingPage.setMinimumSize(new java.awt.Dimension(1300, 900));
+        loadingPage.setPreferredSize(new java.awt.Dimension(1300, 900));
+        loadingPage.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        loadingPageImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Foodie/resources/logo.png"))); // NOI18N
+        loadingPageImage1.setText("jLabel3");
+        loadingPage.add(loadingPageImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 420, 360));
+        loadingPage.add(loading, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 830, 930, 20));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel1.setText("Welcome to FoodieGo!");
+        loadingPage.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 590, 560, 70));
+
+        jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel19.setText("Hungry? ");
+        loadingPage.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 640, 140, 40));
+
+        jLabel26.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel26.setText("Tap to treat yourself today!");
+        loadingPage.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 730, -1, -1));
+
+        jLabel33.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel33.setText(" We’ve got meals for every mood and every crew!");
+        loadingPage.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 670, -1, -1));
+
+        jLabel41.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel41.setText("Quick, easy, and oh-so-delicious");
+        loadingPage.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 700, -1, -1));
+
+        getContentPane().add(loadingPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, -10, 1330, 1090));
+
+        getAccessibleContext().setAccessibleDescription("");
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    
+ 
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        reset();                // TODO add your handling code here:
+    }//GEN-LAST:event_resetButtonActionPerformed
+    
+   
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void totalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalButtonActionPerformed
+        // TODO add your handling code here:
+        
+        billList.add(billTable);
+        
+        bill.addRow(new Object[]{food.getName(), food.getPrice(), food.getQuantity(), food.getIngredients()});
+        
+        if (evt.getSource()==totalButton){
+            controller.calculateTotal();
+        }else if(evt.getSource()==billButton){
+            controller.generateBill();
+        }
+    }//GEN-LAST:event_totalButtonActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        int qty = Integer.parseInt(jSpinner1.getValue().toString());
+        if(qtyIsZero(qty)){
+          
+        }else{
+            jCheckBox1.setSelected(false);
+    }// TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    
+    private void itemTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTextfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemTextfieldActionPerformed
+ 
+    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
+        int qty = Integer.parseInt(jSpinner5.getValue().toString());
+        if(!qtyIsZero(qty)){
+         }else{
+        System.out.println("Quantity is valid: " + qty);
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox5ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        int qty = Integer.parseInt(jSpinner5.getValue().toString());
+        if(!qtyIsZero(qty)){
+            
+         }else{
+        System.out.println("Quantity is valid: " + qty);
+        }/// TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        int qty = Integer.parseInt(jSpinner5.getValue().toString());
+        if(!qtyIsZero(qty)){
+            
+         }else{
+        System.out.println("Quantity is valid: " + qty);
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+        int qty = Integer.parseInt(jSpinner5.getValue().toString());
+        if(!qtyIsZero(qty)){
+            
+         }else{
+        System.out.println("Quantity is valid: " + qty);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox4ActionPerformed
+
+    private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
+        int qty = Integer.parseInt(jSpinner5.getValue().toString());
+        if(!qtyIsZero(qty)){
+            
+         }else{
+        System.out.println("Quantity is valid: " + qty);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox6ActionPerformed
+
+    private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
+        int qty = Integer.parseInt(jSpinner5.getValue().toString());
+        if(!qtyIsZero(qty)){
+            
+         }else{
+        System.out.println("Quantity is valid: " + qty);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox7ActionPerformed
+
+    private void jCheckBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox8ActionPerformed
+        int qty = Integer.parseInt(jSpinner5.getValue().toString());
+        if(!qtyIsZero(qty)){
+            
+         }else{
+        System.out.println("Quantity is valid: " + qty);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox8ActionPerformed
+
+    private void userFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userFieldActionPerformed
+
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+         if (userField.getText().equals("")){
+             JOptionPane.showMessageDialog(null, "Please fill out username");
+         }// TODO add your handling code here:
+         else if(passwordField.getText().equals("")){
+             JOptionPane.showMessageDialog(null, "Please fill out password");
+         }else if(userField.getText().contains("admin")&&passwordField.getText().contains("admin")){
+             JOptionPane.showMessageDialog(null, "LOgin successfully!!");
+         }
+         else{
+             JOptionPane.showMessageDialog(null, "Wrong username or password!!!!!", "Message", JOptionPane.ERROR_MESSAGE);
+         }
+    }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void cancleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancleButtonActionPerformed
+
+        this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_cancleButtonActionPerformed
+
+    public void setTime() {
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Logger.getLogger(foodOrder.class.getName()).log(Level.SEVERE, null, e);
+                }
+                Date date = new Date();
+                SimpleDateFormat tf = new SimpleDateFormat("h:mm:ss aa");
+                SimpleDateFormat df = new SimpleDateFormat("EEEE, dd-MM-yyyy");
+
+                String time = tf.format(date);
+                String dateString = df.format(date);
+
+                // Update GUI components on the Event Dispatch Thread
+                SwingUtilities.invokeLater(() -> {
+                    dateTime1.setText(time); // Assuming time format is correct here
+                    dateTime.setText(dateString);
+                });
+            }
+        }
+    }).start();
+}
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(foodOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(foodOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(foodOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(foodOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        
+         foodOrder food = new foodOrder();
+        java.awt.EventQueue.invokeLater(() -> {
+            food.setVisible(true);
+           
+        });
+    }
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Form;
+    private javax.swing.JButton billButton;
+    private javax.swing.JPanel billDetails;
+    private javax.swing.JTable billTable;
+    private javax.swing.JPanel billingPanel;
+    private javax.swing.JButton cancleButton;
+    private javax.swing.JPanel dashboard;
+    private javax.swing.JLabel dateTime;
+    private javax.swing.JLabel dateTime1;
+    private javax.swing.JButton exitButton;
+    private javax.swing.JPanel food1;
+    private javax.swing.JPanel food2;
+    private javax.swing.JPanel food3;
+    private javax.swing.JPanel food4;
+    private javax.swing.JPanel food5;
+    private javax.swing.JPanel food6;
+    private javax.swing.JPanel food7;
+    private javax.swing.JPanel food8;
+    private javax.swing.JPanel footerPanel;
+    private javax.swing.JTextField itemTextfield;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JCheckBox jCheckBox5;
+    private javax.swing.JCheckBox jCheckBox6;
+    private javax.swing.JCheckBox jCheckBox7;
+    private javax.swing.JCheckBox jCheckBox8;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinner3;
+    private javax.swing.JSpinner jSpinner4;
+    private javax.swing.JSpinner jSpinner5;
+    private javax.swing.JSpinner jSpinner6;
+    private javax.swing.JSpinner jSpinner7;
+    private javax.swing.JSpinner jSpinner8;
+    private javax.swing.JSpinner jSpinner9;
+    private javax.swing.JPanel lbloginError;
+    private javax.swing.JProgressBar loading;
+    private javax.swing.JPanel loadingPage;
+    private javax.swing.JLabel loadingPageImage1;
+    private javax.swing.JPanel login;
+    private javax.swing.JButton loginButton;
+    private javax.swing.JLabel loginText;
+    private javax.swing.JLabel logoImage;
+    private javax.swing.JPanel logopanel;
+    private javax.swing.JPanel menu;
+    private javax.swing.JPanel menuField;
+    private javax.swing.JLabel menuText;
+    private javax.swing.JTextField passwordField;
+    private javax.swing.JButton resetButton;
+    private javax.swing.JLabel signImage;
+    private javax.swing.JTextField taxTextfield;
+    private javax.swing.JButton totalButton;
+    private javax.swing.JTextField totalTextfield;
+    private javax.swing.JTextField userField;
+    // End of variables declaration//GEN-END:variables
+
+    private void loadScreen(String loadingScreen) {
+        cardLayout.show(getContentPane(), loadingScreen);
+    }
+
+   
+
+}
